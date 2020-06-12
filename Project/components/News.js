@@ -1,26 +1,20 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 import styled from 'styled-components/native';
-
-const SelectView = styled.View`
-  height: 10%;
-  width: 100%
-  background-color: #d8f3dc;
-`;
 
 const FlatList = styled.FlatList`
   width: 100%
-  height: 90%
-  background-color: #b7e4c7;
+  height: 100%
+  background-color: #95d5b2;
 `;
 
 const ItemView = styled.View`
-  padding: 20px;
+  padding: 50px;
   border-bottom-color: #eee;
   border-bottom-width: 1px;
-  flex-flow: row;
   align-items: center;
 `;
+
+const ItemText = styled.Text``;
 
 const TouchableOpacity = styled.TouchableOpacity``;
 
@@ -71,30 +65,27 @@ const DATA = [
   },
 ];
 
-function Item({ title }) {
+function NewsItem({ item }) {
   return (
     <TouchableOpacity>
       <ItemView>
-        <Text>{title}</Text>
+        <ItemText>
+          {item.title}
+          {"\n"}
+        </ItemText>
+        <ItemText>{item.id}</ItemText>
       </ItemView>
     </TouchableOpacity>
     
   );
 }
 
-
-export default function MarketScreen() {
+export default function News() {
   return(
-    <View>
-      <SelectView>
-        <Text>여기 시장 선택, 약간 상단바에 선택으로 되어 있고 누르면 밑에서 시장 목록들이 올라와서 선택할 수 있게?</Text>
-      </SelectView>
-      <FlatList
-        data={DATA}
-        renderItem={({ item }) => <Item title={item.title} />}
-        keyExtractor={item => item.id}
-      />
-    </View>
-    
+    <FlatList
+      data={DATA}
+      renderItem={({ item }) => <NewsItem item={item} />}
+      keyExtractor={item => item.id}
+    />
   );
 }

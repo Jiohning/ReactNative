@@ -22,32 +22,32 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="Market"
         component={MarketScreen}
         options={{
-          title: 'Get Started',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-code-working" />,
+          title: '주식시장',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-trending-up" />,
         }}
       />
       <BottomTab.Screen
         name="News"
         component={NewsScreen}
         options={{
-          title: 'News',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book" />,
+          title: '뉴스',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-paper" />,
         }}
       />
       <BottomTab.Screen
         name="Interested"
         component={InterestedScreen}
         options={{
-          title: 'Interested',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book" />,
+          title: '관심목록',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-heart" />,
         }}
       />
       <BottomTab.Screen
         name="Info"
         component={InfoScreen}
         options={{
-          title: 'Information',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book" />,
+          title: '정보',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-information-circle" />,
         }}
       />
     </BottomTab.Navigator>
@@ -60,13 +60,13 @@ function getHeaderTitle(route) {
 
   switch (routeName) {
     case 'Market':
-      return 'How to get started';
+      return 'FASTOCK';
     case 'News':
-      return 'Links to learn more';
+      return '뉴스';
     case 'Interested':
-      return 'Links to learn more';
+      return '관심목록';
     case 'Info':
-      return 'Links to learn more';
+      return '정보';
       
   }
 }
