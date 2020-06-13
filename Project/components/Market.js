@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 
 const SelectView = styled.View`
@@ -71,11 +72,11 @@ const DATA = [
   },
 ];
 
-function Item({ title }) {
+function Item({ item, navigation }) {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => navigation.navigate('Details')}>
       <ItemView>
-        <Text>{title}</Text>
+        <Text>{item.description}</Text>
       </ItemView>
     </TouchableOpacity>
     
@@ -83,17 +84,18 @@ function Item({ title }) {
 }
 
 
-export default function MarketScreen() {
+export default function Market({ navigation }) {
+  const stocks = useSelector(state => state.stocks);
   return(
     <View>
       <SelectView>
         <Text>여기 시장 선택, 약간 상단바에 선택으로 되어 있고 누르면 밑에서 시장 목록들이 올라와서 선택할 수 있게?</Text>
       </SelectView>
       <FlatList
-        data={DATA}
-        renderItem={({ item }) => <Item title={item.title} />}
-        keyExtractor={item => item.id}
-      />
+        data={stocks}
+        renderItem={({ item }) => <Item item={item} />}
+        keyExtractor={item => item.symbol}
+      />      
     </View>
     
   );

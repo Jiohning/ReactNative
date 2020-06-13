@@ -29,7 +29,7 @@
         ],
         "summary": "회원가입",
         "description": "email, password로 회원가입",
-        "operationId": "loginUser",
+        "operationId": "registerUser",
         "consumes": [
           "application/json",
           "application/x-www-form-urlencoded"
@@ -55,7 +55,7 @@
         ],
         "responses": {
           "200": {
-            "description": "회원가입 필요",
+            "description": "회원가입 성공",
             "schema": {
               "type": "object",
               "properties": {
@@ -64,8 +64,8 @@
                 },
                 "token": {
                   "type": "string",
-                  "example": "AKDFHASI_DFOEFJ",
-                  "description": "JSONE Web Token"
+                  "example": "ASDKLGJASDFGA_ASDGFASDG",
+                  "description": "JSON Web Token"
                 }
               }
             }
@@ -76,14 +76,14 @@
         }
       }
     },
-    "/auth/logout": {
+    "/auth/login": {
       "post": {
         "tags": [
           "auth"
         ],
-        "summary": "로그아웃",
-        "description": "사용하고 있던 token을 invalidate 시킨다.",
-        "operationId": "logoutUser",
+        "summary": "로그인",
+        "description": "email, password로 로그인",
+        "operationId": "loginUser",
         "consumes": [
           "application/json"
         ],
@@ -94,7 +94,7 @@
           {
             "in": "body",
             "name": "body",
-            "description": "회원가입 정보",
+            "description": "로그인 정보",
             "required": true,
             "schema": {
               "type": "object",
@@ -114,7 +114,7 @@
         ],
         "responses": {
           "200": {
-            "description": "회원가입 필요",
+            "description": "회원가입 성공",
             "schema": {
               "type": "object",
               "properties": {
@@ -123,8 +123,8 @@
                 },
                 "token": {
                   "type": "string",
-                  "example": "AKDFHASI_DFOEFJ",
-                  "description": "JSONE Web Token"
+                  "example": "ASDKLGJASDFGA_ASDGFASDG",
+                  "description": "JSON Web Token"
                 }
               }
             }
@@ -135,14 +135,14 @@
         }
       }
     },
-    "/auth/login": {
+    "/auth/logout": {
       "post": {
         "tags": [
           "auth"
         ],
-        "summary": "로그인",
-        "description": "로그인",
-        "operationId": "registerUser",
+        "summary": "로그아웃",
+        "description": "사용하고 있던 token을 invalidate 시킨다.",
+        "operationId": "logoutUser",
         "consumes": [
           "application/json"
         ],
@@ -174,7 +174,7 @@
         },
         "email": {
           "type": "string",
-          "example": "test@hanmail.net"
+          "example": "test@test.com"
         }
       }
     },

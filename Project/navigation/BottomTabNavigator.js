@@ -2,10 +2,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 
 import TabBarIcon from '../components/TabBarIcon';
-import MarketScreen from '../screens/MarketScreen';
+import MarketScreen from '../screens/Market/index';
 import NewsScreen from '../screens/NewsScreen';
 import InterestedScreen from '../screens/InterestedScreen';
 import InfoScreen from '../screens/InfoScreen';
+
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Market';
@@ -31,7 +32,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={NewsScreen}
         options={{
           title: '뉴스',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-paper" />,
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-paper"/>,
         }}
       />
       <BottomTab.Screen
@@ -60,7 +61,7 @@ function getHeaderTitle(route) {
 
   switch (routeName) {
     case 'Market':
-      return 'FASTOCK';
+      return '주식 정보';
     case 'News':
       return '뉴스';
     case 'Interested':
