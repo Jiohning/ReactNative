@@ -6,8 +6,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 
+import DetailScreen from './DetailScreen';
+
 // import HomeScreen from './HomeScreen';
-import { getStocks } from '../../scr/actions';
+import { getStocks, setItem, selectPrice } from '../../scr/actions';
 
 const SelectView = styled.View`
   height: 10%;
@@ -31,9 +33,17 @@ const ItemView = styled.View`
 
 const TouchableOpacity = styled.TouchableOpacity``;
 
+const PriceView = styled.Text`
+  height: 15%;
+  width: 100%
+`;
+
 function Item({ item, navigation }) {
+  const dispatch = useDispatch();
+
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('Details')}>
+    <TouchableOpacity onPress={() => {navigation.navigate('Details')
+      dispatch(setItem(item))}}>
       <ItemView>
         <Text>{item.description}</Text>
       </ItemView>
@@ -69,8 +79,10 @@ function HomeScreen({ navigation }) {
 }
 
 function DetailsScreen({ navigation }) {
+
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View>
+      <DetailScreen/>
       <Text>Details Screen</Text>
       <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
       <Button title="Go back" onPress={() => navigation.goBack()} />
@@ -84,8 +96,8 @@ export default function Index() {
   return (
     <NavigationContainer independent={true}>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Details" component={DetailsScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} options={{title: "Home"}} />
+        <Stack.Screen name="Details" component={DetailsScreen} options={{title: "Detail"}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

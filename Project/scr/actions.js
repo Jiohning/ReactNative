@@ -227,3 +227,13 @@ export function getPeers(symbol){
     })
   };
 }
+
+export function setItem(item){
+  return (dispatch) => {
+    dispatch({ type: 'CLEAR_ERRORS' });
+    dispatch({
+      type: 'SET_ITEM',
+      payload: item
+    });
+  };
+}

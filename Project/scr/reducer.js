@@ -35,6 +35,7 @@ const initialState = {
   recommendation: [],
   peers: [],
   error: null,
+  item: null,
 };
 
 const reducer = produce((state, action) => {
@@ -50,29 +51,32 @@ const reducer = produce((state, action) => {
       state.stock = action.payload;
       break;
     case 'GET_PRICE':
-        state.priceList.push(action.payload);
-        break;
+      state.priceList.push(action.payload);
+      break;
     case 'SELETE_PRICE':
-        state.price = action.payload;
-        break;
+      state.price = action.payload;
+      break;
     case 'GET_GENERAL_NEWS':
-        state.generalNews = action.payload;
-        break;
+      state.generalNews = action.payload;
+      break;
     case 'GET_COMPANY_NEWS':
-        state.companyNews = action.payload;
-        break;
+      state.companyNews = action.payload;
+      break;
     case 'GET_CANDLE':
-        state.candleData = action.payload;
-        break;
+      state.candleData = action.payload;
+      break;
     case 'GET_ABOUT':
-        state.about = action.payload;
-        break;
+      state.about = action.payload;
+      break;
     case 'GET_RECOMMENDATION':
-        state.recommendation = action.payload;
-        break;
+      state.recommendation = action.payload;
+      break;
     case 'GET_PEERS':
-        state.peers = action.payload;
-        break;
+      state.peers = action.payload;
+      break;
+    case 'SET_ITEM':
+      state.item = action.payload;
+      break;
     case 'ERROR':
         state.error = action.payload;
         break;
