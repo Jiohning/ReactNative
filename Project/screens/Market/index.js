@@ -1,18 +1,24 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { View, Text, Button } from 'react-native';
+import { ScrollView, View, Text, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 
 import DetailScreen from './DetailScreen';
+import Exchanges from '../../components/Exchanges';
 
-// import HomeScreen from './HomeScreen';
 import { getStocks, setItem, selectPrice } from '../../scr/actions';
 
-const SelectView = styled.View`
-  height: 10%;
+const SelectView1 = styled.View`
+  height: 100%;
+  width: 100%
+  background-color: #d8f3dc;
+`;
+
+const SelectView2 = styled.View`
+  height: 20%;
   width: 100%
   background-color: #d8f3dc;
 `;
@@ -33,10 +39,6 @@ const ItemView = styled.View`
 
 const TouchableOpacity = styled.TouchableOpacity``;
 
-const PriceView = styled.Text`
-  height: 15%;
-  width: 100%
-`;
 
 function Item({ item, navigation }) {
   const dispatch = useDispatch();
@@ -52,27 +54,36 @@ function Item({ item, navigation }) {
   );
 }
 
-function HomeScreen({ navigation }) {
-  const dispatch = useDispatch();
+function HomesScreen({ navigation }) {
   const [loading, setLoading] = useState(true);
   const stocks = useSelector(state => state.stocks);
+  const exchange = useSelector(state => state.exchange);
 
   useEffect(() => {setLoading(false);});
 
   return(
     <View>
-      {loading && dispatch(getStocks("KS"))}
+      {loading && null}
       {!loading && 
-        <View>
-          <SelectView>
-            <Text>여기 시장 선택, 약간 상단바에 선택으로 되어 있고 누르면 밑에서 시장 목록들이 올라와서 선택할 수 있게?</Text>
-          </SelectView>
-          <FlatList
-            data={stocks}
-            renderItem={({ item }) => <Item item={item} navigation={navigation} />}
-            keyExtractor={item => item.symbol}
-          />      
-        </View>
+        <>
+          {!exchange && 
+            <SelectView1>
+              <Exchanges/>
+            </SelectView1>
+          }
+          {exchange &&
+          <View>
+            <SelectView2>
+              <Exchanges/>
+            </SelectView2>
+            <FlatList
+              data={stocks}
+              renderItem={({ item }) => <Item item={item} navigation={navigation} />}
+              keyExtractor={item => item.symbol}
+            />  
+          </View>
+          }
+        </>
       }
     </View>
   )
@@ -81,12 +92,13 @@ function HomeScreen({ navigation }) {
 function DetailsScreen({ navigation }) {
 
   return (
-    <View>
-      <DetailScreen/>
-      <Text>Details Screen</Text>
+    <ScrollView>
+      <View>
+        <DetailScreen/>
+      </View>
       <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
       <Button title="Go back" onPress={() => navigation.goBack()} />
-    </View>
+    </ScrollView>
   );
 }
 
@@ -96,7 +108,7 @@ export default function Index() {
   return (
     <NavigationContainer independent={true}>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} options={{title: "Home"}} />
+        <Stack.Screen name="Home" component={HomesScreen} options={{title: "Home"}} />
         <Stack.Screen name="Details" component={DetailsScreen} options={{title: "Detail"}}/>
       </Stack.Navigator>
     </NavigationContainer>

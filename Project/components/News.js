@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 
 const FlatList = styled.FlatList`
@@ -35,12 +34,11 @@ function NewsItem({ item }) {
   );
 }
 
-export default function News() {
-  const generalNews = useSelector(state => state.generalNews);
+export default function News({news}) {
 
   return(
     <FlatList
-      data={generalNews}
+      data={news}
       renderItem={({ item }) => <NewsItem item={item} />}
       keyExtractor={item => item.id.toString()}
     />

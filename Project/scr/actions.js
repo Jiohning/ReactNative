@@ -172,7 +172,7 @@ export function getCompanyNews(symbol, from, to){
     }}).then(({data}) => {
       dispatch({
         type: 'GET_COMPANY_NEWS',
-        payload: data
+        payload: data.slice(0,5)
       });
     }).catch((error) => {
       dispatch({
@@ -233,6 +233,16 @@ export function setItem(item){
     dispatch({ type: 'CLEAR_ERRORS' });
     dispatch({
       type: 'SET_ITEM',
+      payload: item
+    });
+  };
+}
+
+export function setInterested(item){
+  return (dispatch) => {
+    dispatch({ type: 'CLEAR_ERRORS' });
+    dispatch({
+      type: 'SET_INTERESTED',
       payload: item
     });
   };

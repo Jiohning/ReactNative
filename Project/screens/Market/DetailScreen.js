@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { ActivityIndicator, View, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Detail from '../../components/Detail';
-import { selectStock, recommend, getAbout, getCandle, getCompanyNews, selectPrice, getPeers } from '../../scr/actions';
+import { selectStock, getAbout, getCompanyNews, selectPrice, getPeers, getCandle } from '../../scr/actions';
 
 
 export default function DetailScreen() {
@@ -15,10 +15,9 @@ export default function DetailScreen() {
     dispatch(selectPrice(item.symbol));
     dispatch(selectStock(item));
     dispatch(getCompanyNews(item.symbol, getFrom(), getTo()));
-    dispatch(getCandle(item.symbol, time()-86400, time()));
-    dispatch(recommend(item.symbol));
     dispatch(getAbout(item.symbol));
     dispatch(getPeers(item.symbol));
+    dispatch(getCandle(item.symbol, time()-86400, time()));
     setLoading(false);
   });
 
@@ -55,7 +54,7 @@ export default function DetailScreen() {
 
   return(
     <View>
-      {loading && <Text>Loading...</Text>}
+      {loading && <ActivityIndicator size="large" color="#0000ff" />}
       {!loading && <Detail/>}
     </View>
   );

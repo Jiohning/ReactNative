@@ -1,31 +1,10 @@
 import produce from 'immer';
 
 const initialState = {
-  exchanges: [
-    {
-        "code": "US",
-        "currency": "USD",
-        "name": "US exchanges"
-    },
-    {
-        "code": "T",
-        "currency": "JPY",
-        "name": "TOKYO STOCK EXCHANGE-TOKYO PRO MARKET"
-    },
-    {
-        "code": "KS",
-        "currency": "KRW",
-        "name": "KOREA EXCHANGE (STOCK MARKET)"
-    }
-  ],
   stocks: null,
   generalNews: null,
   priceList: [],
-  exchange: {
-    "code": "KS",
-    "currency": "KRW",
-    "name": "KOREA EXCHANGE (STOCK MARKET)"
-    },
+  exchange: null,
   stock: null,
   price: {c: 0, h: 0, l: 0, o: 0, pc: 0, t:0},
   companyNews: null,
@@ -36,6 +15,7 @@ const initialState = {
   peers: [],
   error: null,
   item: null,
+  interested: [],
 };
 
 const reducer = produce((state, action) => {
@@ -76,6 +56,9 @@ const reducer = produce((state, action) => {
       break;
     case 'SET_ITEM':
       state.item = action.payload;
+      break;
+    case 'SET_INTERESTED':
+      state.interested.push(action.payload);
       break;
     case 'ERROR':
         state.error = action.payload;
