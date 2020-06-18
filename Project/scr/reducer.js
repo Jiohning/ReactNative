@@ -1,20 +1,20 @@
 import produce from 'immer';
 
 const initialState = {
-  stocks: null,
-  generalNews: null,
+  stocks: "",
+  generalNews: "",
   priceList: [],
-  exchange: null,
-  stock: null,
+  exchange: "",
+  stock: "",
   price: {c: 0, h: 0, l: 0, o: 0, pc: 0, t:0},
-  companyNews: null,
-  candleData: null,
-  about: null,
+  companyNews: "",
+  candleData: "",
+  about: "",
   loading: false,
   recommendation: [],
   peers: [],
-  error: null,
-  item: null,
+  error: "",
+  item: "",
   interested: [],
 };
 
@@ -59,6 +59,9 @@ const reducer = produce((state, action) => {
       break;
     case 'SET_INTERESTED':
       state.interested.push(action.payload);
+      break;
+    case 'RESET_INTERESTED':
+      state.interested = action.payload;
       break;
     case 'ERROR':
         state.error = action.payload;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { ActivityIndicator, ScrollView, View, Text, Button } from 'react-native';
+import { ActivityIndicator, View, Text, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,18 +8,12 @@ import styled from 'styled-components/native';
 
 import DetailScreen from './Market/DetailScreen';
 
-import { setItem } from '../scr/actions';
-
-const SelectView = styled.View`
-  height: 10%;
-  width: 100%
-  background-color: #d8f3dc;
-`;
+import { setItem, resetInterested } from '../scr/actions';
 
 const FlatList = styled.FlatList`
   width: 100%
-  height: 90%
-  background-color: #b7e4c7;
+  height: 100%
+  background-color: #ffff;
 `;
 
 const ItemView = styled.View`
@@ -32,9 +26,16 @@ const ItemView = styled.View`
 
 const TouchableOpacity = styled.TouchableOpacity``;
 
-const PriceView = styled.Text`
-  height: 15%;
-  width: 100%
+const ViewText = styled.Text`
+  height: 100%;
+  width: 100%;
+  font-size: 20px;
+  padding-top: 60%;
+  text-align: center;
+`;
+const StockView = styled.View`
+  width: 100%;
+  height: 100%;
 `;
 
 function Item({ item, navigation }) {
@@ -54,6 +55,7 @@ function Item({ item, navigation }) {
 function HomeScreen({ navigation }) {
   const [loading, setLoading] = useState(true);
   const interested = useSelector(state => state.interested);
+  const dispatch = useDispatch();
 
   useEffect(() => {setLoading(false);});
 
@@ -62,25 +64,33 @@ function HomeScreen({ navigation }) {
       {loading && <ActivityIndicator size="large" color="#0000ff" />}
       {!loading && 
         <View>
-          <FlatList
-            data={interested}
-            renderItem={({ item }) => <Item item={item} navigation={navigation} />}
-            keyExtractor={item => item.symbol}
-          />      
+        {interested.length == 0 && <ViewText>추가된 관심목록이 없습니다!</ViewText>}
+        {interested.length != 0 && 
+          <>
+            <FlatList
+              data={interested}
+              renderItem={({ item }) => <Item item={item} navigation={navigation} />}
+              keyExtractor={item => item.symbol}
+            /> 
+            <Button
+                title="관심 목록 초기화하기"
+                onPress={() => {
+                  dispatch(resetInterested())}}
+            />
+          </>     
+        }
         </View>
       }
     </View>
-  )
+  );
 }
 
 function DetailsScreen({ navigation }) {
 
   return (
-    <View>
+    <StockView>
       <DetailScreen/>
-      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
-      <Button title="Go back" onPress={() => navigation.goBack()} />
-    </View>
+    </StockView>
   );
 }
 

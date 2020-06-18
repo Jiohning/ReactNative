@@ -27,7 +27,7 @@ export default ({onSubmit}) => {
         onSubmitEditing={() => {
           onSubmit(value);
           setValue("");
-        })}
+        }}
       />
     </KeyboardAvoidingView>
   

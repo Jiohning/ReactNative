@@ -1,10 +1,11 @@
 import React from 'react';
+import { Image, StyleSheet, Linking } from 'react-native';
 import styled from 'styled-components/native';
 
 const FlatList = styled.FlatList`
   width: 100%
   height: 100%
-  background-color: #95d5b2;
+  background-color: #fff;
 `;
 
 const ItemView = styled.View`
@@ -14,19 +15,36 @@ const ItemView = styled.View`
   align-items: center;
 `;
 
-const ItemText = styled.Text``;
+const TitleText = styled.Text`
+  font-weight: bold;
+`;
+
+const ItemText = styled.Text`
+`;
 
 const TouchableOpacity = styled.TouchableOpacity``;
+
+const styles = StyleSheet.create({
+  tinyLogo: {
+    width: 300,
+    height: 200,
+  },
+});
 
 
 function NewsItem({ item }) {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => {Linking.openURL(item.url)}}>
       <ItemView>
-        <ItemText>
+        <Image
+          style={styles.tinyLogo}
+          source={{uri: item.image}}
+        />
+        <TitleText>
+          {"\n"}
           {item.headline}
           {"\n"}
-        </ItemText>
+        </TitleText>
         <ItemText>{item.summary}</ItemText>
       </ItemView>
     </TouchableOpacity>

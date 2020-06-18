@@ -53,9 +53,9 @@ export default function DetailScreen() {
   };
 
   return(
-    <View>
-      {loading && <ActivityIndicator size="large" color="#0000ff" />}
+    <>
+      {loading && <ActivityIndicator size="large" color="#05668d" />}
       {!loading && <Detail/>}
-    </View>
+    </>
   );
 }

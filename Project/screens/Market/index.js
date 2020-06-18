@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { ScrollView, View, Text, Button } from 'react-native';
+import {  View, Text, ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,24 +9,24 @@ import styled from 'styled-components/native';
 import DetailScreen from './DetailScreen';
 import Exchanges from '../../components/Exchanges';
 
-import { getStocks, setItem, selectPrice } from '../../scr/actions';
+import { setItem } from '../../scr/actions';
 
 const SelectView1 = styled.View`
   height: 100%;
   width: 100%
-  background-color: #d8f3dc;
+  background-color: #fff;
 `;
 
 const SelectView2 = styled.View`
-  height: 20%;
+  height: 15%;
   width: 100%
-  background-color: #d8f3dc;
+  background-color: #fff;
 `;
 
 const FlatList = styled.FlatList`
   width: 100%
   height: 90%
-  background-color: #b7e4c7;
+  background-color: #fff;
 `;
 
 const ItemView = styled.View`
@@ -35,6 +35,11 @@ const ItemView = styled.View`
   border-bottom-width: 1px;
   flex-flow: row;
   align-items: center;
+`;
+
+const StockView = styled.View`
+  height: 100%;
+  width: 100%;
 `;
 
 const TouchableOpacity = styled.TouchableOpacity``;
@@ -59,46 +64,45 @@ function HomesScreen({ navigation }) {
   const stocks = useSelector(state => state.stocks);
   const exchange = useSelector(state => state.exchange);
 
-  useEffect(() => {setLoading(false);});
+  useEffect(() => {setLoading(false)});
 
   return(
-    <View>
-      {loading && null}
-      {!loading && 
+    <>
+    {loading == true && <ActivityIndicator size="large" color="#05668d" />}
+    {loading == false &&
         <>
           {!exchange && 
             <SelectView1>
               <Exchanges/>
             </SelectView1>
           }
-          {exchange &&
-          <View>
-            <SelectView2>
-              <Exchanges/>
-            </SelectView2>
-            <FlatList
-              data={stocks}
-              renderItem={({ item }) => <Item item={item} navigation={navigation} />}
-              keyExtractor={item => item.symbol}
-            />  
-          </View>
+          {exchange != null &&
+            <>
+              <SelectView2>
+                <Exchanges/>
+              </SelectView2>
+              <FlatList
+                data={stocks}
+                renderItem={({ item }) => <Item item={item} navigation={navigation} />}
+                keyExtractor={item => item.symbol}
+              />  
+            </>
           }
         </>
       }
-    </View>
+    </>
+    
   )
 }
 
 function DetailsScreen({ navigation }) {
 
   return (
-    <ScrollView>
-      <View>
+    <>
+      <StockView>
         <DetailScreen/>
-      </View>
-      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
-      <Button title="Go back" onPress={() => navigation.goBack()} />
-    </ScrollView>
+      </StockView>
+    </>
   );
 }
 

@@ -38,7 +38,7 @@ export function getStocks(code){
     }}).then(({data}) => {
       dispatch({
         type: 'GET_STOCKS',
-        payload: data.slice(1, 10)
+        payload: data.slice(0,10)
       });
     }).catch((error) => {
       dispatch({
@@ -124,7 +124,7 @@ export function getGeneralNews(){
     }}).then(({data}) => {
       dispatch({
         type: 'GET_GENERAL_NEWS',
-        payload: data.slice(1,5)
+        payload: data
       });
     }).catch((error) => {
       dispatch({
@@ -172,7 +172,7 @@ export function getCompanyNews(symbol, from, to){
     }}).then(({data}) => {
       dispatch({
         type: 'GET_COMPANY_NEWS',
-        payload: data.slice(0,5)
+        payload: data.slice(0,3)
       });
     }).catch((error) => {
       dispatch({
@@ -244,6 +244,16 @@ export function setInterested(item){
     dispatch({
       type: 'SET_INTERESTED',
       payload: item
+    });
+  };
+}
+
+export function resetInterested(){
+  return (dispatch) => {
+    dispatch({ type: 'CLEAR_ERRORS' });
+    dispatch({
+      type: 'RESET_INTERESTED',
+      payload: []
     });
   };
 }

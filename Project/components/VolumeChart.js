@@ -2,10 +2,9 @@ import React from 'react';
 import { LineChart, YAxis, Grid } from 'react-native-svg-charts';
 import { View } from 'react-native';
 
-export default class Chart extends React.PureComponent {
+export default class VolumeChart extends React.PureComponent {
   render(){
     const data = this.props.data;
-    const exchange = this.props.exchange;
     const contentInset = { top: 20, bottom: 20 };
 
     return (
@@ -18,7 +17,7 @@ export default class Chart extends React.PureComponent {
                     fontSize: 10,
                 }}
                 numberOfTicks={10}
-                formatLabel={(value) => `${value} ${exchange.currency}`}
+                formatLabel={(value) => `${value}`}
             />
             <LineChart
                 style={{ flex: 1, marginLeft: 16 }}
